@@ -147,11 +147,23 @@ const NewTransferPage = () => {
 
   const handleSubmit = async () => {
     setLoading(true);
-    const result = await createTransfer({
-      ...form,
-      source_connection: Number(form.source_connection),
-      destination_connection: Number(form.destination_connection),
-    });
+
+    const payload = {
+      name: form.name.trim(),
+      description: form.description || "",
+      source_connection_id: Number(form.source_connection),        
+      source_schema: form.source_schema,
+      source_table: form.source_table,
+      destination_connection_id: Number(form.destination_connection),
+      destination_schema: form.destination_schema,
+      destination_table: form.destination_table,
+      column_mapping: form.column_mapping || {},
+      source_filters: form.source_filters || {},
+      batch_size: Number(form.batch_size) || 1000,
+      truncate_destination: Boolean(form.truncate_destination),
+    };
+
+    const result = await createTransfer(payload);
     setLoading(false);
     if (result.success) navigate(`/transfers/${result.data.id}`);
   };
@@ -234,7 +246,7 @@ const NewTransferPage = () => {
               destColumns={destDiscovery.columns}
             />
           )}
-          {step === 4 && <StepReview form={form} />}
+          {step === 4 && <StepReview form={form} update={updateForm} />}
         </div>
 
         {/* Actions */}
@@ -414,25 +426,19 @@ const StepMapping = ({ sourceColumns, destColumns, form, update }) => {
   );
 };
 
-const StepReview = ({ form }) => (
+const StepReview = ({ form, update }) => (
   <div className="space-y-4">
     <Input
       label="Transfer Name *"
       value={form.name}
-      onChange={(e) => form.name && form.name !== e.target.value && (form.name = e.target.value)}
+      onChange={(e) => update('name', e.target.value)}
     />
     <div className="bg-black/30 border border-white/8 rounded-lg p-4 space-y-3">
       <Row label="Source" value={`${form.source_schema}.${form.source_table}`} />
-      <Row
-        label="Destination"
-        value={`${form.destination_schema}.${form.destination_table}`}
-      />
+      <Row label="Destination" value={`${form.destination_schema}.${form.destination_table}`} />
       <Row label="Batch Size" value={form.batch_size} />
       <Row label="Columns Mapped" value={Object.keys(form.column_mapping).length} />
-      <Row
-        label="Truncate Destination"
-        value={form.truncate_destination ? 'Yes' : 'No'}
-      />
+      <Row label="Truncate Destination" value={form.truncate_destination ? 'Yes' : 'No'} />
     </div>
   </div>
 );
