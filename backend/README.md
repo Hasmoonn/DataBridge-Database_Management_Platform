@@ -1,4 +1,3 @@
-```markdown
 # Data Connectivity & Transfer Platform
 
 A web platform that enables users to connect to multiple database systems, explore data structures,
@@ -254,4 +253,3 @@ Authorization: Bearer <your-access-token>
 ## Author
 
 Built by **MOHAMED HASMOON** — Data Connectivity & Transfer Platform internship task
-```
