@@ -28,11 +28,8 @@ const StatCard = ({
     <div className="bg-[#14213d] rounded-xl border border-white/8 p-3 sm:p-5 hover:border-white/15 transition-all duration-200 group">
       <div className="flex items-start justify-between mb-2 sm:mb-4">
         {/* Icon */}
-        <div
-          className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center"
-          style={{ backgroundColor: `${color}18` }}
-        >
-          <Icon size={18} className="sm:!w-5 sm:!h-5" style={{ color }} />
+        <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
+          <Icon className="w-5 h-5 text-white/80" />
         </div>
 
         {/* Percent Ring (for success rate) */}
