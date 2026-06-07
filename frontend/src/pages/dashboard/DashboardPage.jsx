@@ -4,12 +4,7 @@ import {
   ArrowLeftRight,
   HardDrive,
   CheckCircle,
-  TrendingUp,
   Plus,
-  Play,
-  Search,
-  FileText,
-  Zap,
   RefreshCw,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
